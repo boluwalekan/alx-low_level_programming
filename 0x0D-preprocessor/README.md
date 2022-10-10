@@ -1,3 +1,1 @@
-0x0D. C - Preprocessor
-clear
-
+0x0D-preprocessor
