@@ -1,23 +1,30 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "function_pointers.h"
+#include "3-calc.h"
+#include <string.h>
+
 /**
- * int_index - indexes aray i think
- * @array: array to go through
- * @size: size of array
- * @cmp: function to do something with size
- * Return: int value
+ * get_op_func - selects the correct operation toperform
+ * @s: operation to perform
+ *
+ * Return: pointer to the correct function
  */
-int int_index(int *array, int size, int (*cmp)(int))
+int (*get_op_func(char *s))(int, int)
 {
+	op_t ops[] = {
+		{"+", op_add},
+		{"-", op_sub},
+		{"*", op_mul},
+		{"/", op_div},
+		{"%", op_mod},
+		{NULL, NULL}
+	};
 	int i;
 
-	if (size <= 0 || array == NULL || cmp == NULL)
-		return (-1);
-	for (i = 0; i < size; i++)
+	i = 0;
+	while (ops[i].op != NULL)
 	{
-		if (cmp(array[i]))
-			return (i);
+		if (strcmp(s, ops[i].op) == 0)
+			break;
+		i++;
 	}
-	return (-1);
+	return (ops[i].f);
 }
